@@ -18,13 +18,13 @@ def draw_cube(ax, pos, color):
     for edge in edges:
         ax.plot3D(*zip(*edge), color=color)
 
-# Apply a geometric transformation to the cube
+
 def transform_cube(ax, matrix, color, pos=(0, 0, 0)):
-    # Create a grid of points within the cube
+    # Create a grid of points
     x, y, z = np.meshgrid(range(2), range(2), range(2))
     cube = np.vstack((x.flatten(), y.flatten(), z.flatten())).T
 
-    # Apply the transformation matrix to the cube points
+    # Apply the transformation matrix
     cube_transformed = np.dot(cube - 0.5, matrix) + 0.5 + np.array(pos)
 
     # Draw the transformed cube
@@ -36,7 +36,7 @@ def transform_cube(ax, matrix, color, pos=(0, 0, 0)):
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-# Define the transformation matrix (rotation, scaling, etc.)
+
 transformation_matrix = np.array([[1, 0, 0],
                                   [0, 1, 0],
                                   [0, 0, 1]])
@@ -46,13 +46,9 @@ colors = ['red', 'green', 'blue', 'orange', 'purple']
 for i, color in enumerate(colors):
     transform_cube(ax, transformation_matrix, color, pos=(i, 0, 0))
 
-# Set the labels
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
 
-# Set the aspect ratio
 ax.set_box_aspect([1,1,1])
-
-# Show the plot
 plt.show()
